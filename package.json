@@ -1,0 +1,49 @@
+{
+  "name": "vue-lerna-base-generators",
+  "version": "1.0.0",
+  "description": "VueJS + Lerna + Plop Template",
+  "author": "Josema Pereira",
+  "license": "MIT",
+  "private": true,  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosemaPereira/vue-lerna-base-generators.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">10.x",
+    "yarn": ">1.0.0"
+  },
+  "scripts": {
+    "prebuild": "lerna run eslint -- src/**/*.ts && lerna run lint-app",
+    "build": "yarn run build:tsc && yarn run build:app",
+    "postbuild": "lerna version",
+    "start": "yarn run build:tsc && lerna run start-app --stream",
+    "test": "lerna run karma -- start --single-run",
+    "build:tsc": "lerna run tsc",
+    "build:ci": "yarn run build:tsc && yarn run build:ci:app",
+    "build:app": "lerna run build-app",
+    "build:ci:app": "lerna run build-app:ci",
+    "test:ci": "NODE_ENV=production lerna run karma -- start --single-run"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.7.6",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "eslint": "^7.27.0",
+    "eslint-plugin-vue": "^7.10.0",
+    "jasmine": "^3.4.0",
+    "jsdom": "^16.6.0",
+    "karma": "^6.3.3",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^2.0.1",
+    "karma-jsdom-launcher": "^9.0.0",
+    "karma-typescript": "^4.1.1",
+    "karma-typescript-es6-transform": "^4.1.1",
+    "lerna": "^4.0.0",
+    "typescript": "^4.3.2"
+  }
+}

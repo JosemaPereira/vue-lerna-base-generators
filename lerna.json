@@ -1,0 +1,25 @@
+{
+  "useWorkspaces": true,
+  "packages": [
+    "packages/*"
+  ],
+  "version": "independent",
+  "ignoreChanges": [
+    "**/*.md",
+    "**/package.json"
+  ],
+  "npmClient": "yarn",
+  "command": {
+    "version": {
+      "allowBranch": [
+        "release/*"
+      ],
+      "conventionalCommits": true,
+      "exact": true,
+      "includeMergedTags": true,
+      "message": "chore(release): bumps versions",
+      "tagVersionPrefix": "v",
+      "yes": true
+    }
+  }
+}
