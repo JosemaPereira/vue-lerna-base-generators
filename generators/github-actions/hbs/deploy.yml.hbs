@@ -1,0 +1,50 @@
+name: To S3
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js $\{{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Configure CLI
+      run: |
+        aws configure set aws_access_key_id $\{{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key $\{{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set region $\{{ secrets.AWS_REGION }}
+
+
+    - name: Yarn Install
+      run: yarn install
+        
+    - name: Resolve internal dependencies
+      run: lerna bootstrap
+      
+    - name: Make envfile
+      run: |
+        touch packages/{{name}}/.env
+        echo "VUE_APP_TITLE= $\{{ secrets.VUE_APP_TITLE }}\n" >> packages/base-web-app/.env
+          
+    - name: Production Build
+      run: yarn build:ci
+      
+    - name: Deploy to S3
+      run: |
+        aws s3 rm $\{{ secrets.AWS_BUCKET }} --recursive
+        aws s3 cp $\{{ secrets.VUE_APP_DIRECTORY_DIST }}/favicon.ico $\{{ secrets.AWS_BUCKET }}
+        aws s3 cp $\{{ secrets.VUE_APP_DIRECTORY_DIST }}/index.html $\{{ secrets.AWS_BUCKET }}
+        aws s3 cp $\{{ secrets.VUE_APP_DIRECTORY_DIST }}/css $\{{ secrets.AWS_BUCKET }}/css --content-encoding gzip --recursive
+        aws s3 cp $\{{ secrets.VUE_APP_DIRECTORY_DIST }}/js $\{{ secrets.AWS_BUCKET }}/js ---content-encoding gzip --recursive
+        aws s3 cp $\{{ secrets.VUE_APP_DIRECTORY_DIST }}/img $\{{ secrets.AWS_BUCKET }}/img --recursive
+
+
