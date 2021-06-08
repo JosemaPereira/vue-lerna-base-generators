@@ -1,0 +1,26 @@
+{
+  "name": "@{{kebabCase organization}}/{{contractPrefix}}{{kebabCase name}}",
+  "version": "0.1.0",
+  "description": "",
+  "author": {
+    "name": "{{organization}}"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "fesm5": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"{{#unless  contractPrefix}},
+    "test": "tests"{{/unless}}
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "eslint": "eslint",
+    "tsc": "tsc"{{#unless  contractPrefix}},
+    "karma": "karma"{{/unless}}
+  }
+}

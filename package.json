@@ -4,7 +4,8 @@
   "description": "VueJS + Lerna + Plop Template",
   "author": "Josema Pereira",
   "license": "MIT",
-  "private": true,  "repository": {
+  "private": true,
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/JosemaPereira/vue-lerna-base-generators.git"
   },
@@ -16,6 +17,7 @@
     "yarn": ">1.0.0"
   },
   "scripts": {
+    "generate": "plop --plopfile ./generators/index.js",
     "prebuild": "lerna run eslint -- src/**/*.ts && lerna run lint-app",
     "build": "yarn run build:tsc && yarn run build:app",
     "postbuild": "lerna version",
@@ -44,6 +46,7 @@
     "karma-typescript": "^4.1.1",
     "karma-typescript-es6-transform": "^4.1.1",
     "lerna": "^4.0.0",
+    "plop": "^2.7.4",
     "typescript": "^4.3.2"
   }
 }
