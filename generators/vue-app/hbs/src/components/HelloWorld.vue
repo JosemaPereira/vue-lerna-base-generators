@@ -12,7 +12,7 @@
 
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
-          {{ title }}
+          \{{ title }}
         </h1>
 
         <p class="subheading font-weight-regular">
@@ -41,7 +41,7 @@
             class="subheading mx-3"
             target="_blank"
           >
-            {{ next.text }}
+            \{{ next.text }}
           </a>
         </v-row>
       </v-col>
@@ -62,7 +62,7 @@
             class="subheading mx-3"
             target="_blank"
           >
-            {{ link.text }}
+            \{{ link.text }}
           </a>
         </v-row>
       </v-col>
@@ -83,7 +83,7 @@
             class="subheading mx-3"
             target="_blank"
           >
-            {{ eco.text }}
+            \{{ eco.text }}
           </a>
         </v-row>
       </v-col>
